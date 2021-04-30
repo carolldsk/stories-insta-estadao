@@ -1,2 +1,4 @@
 node_modules/*
 estadao.json
+*.env
+.env
