@@ -16,9 +16,7 @@ Em seguida, instalar a biblioteca que gerenciamos os environments:
 
 `$ npm i dotenv`
 
-Diga para o git considerar que o .env não foi alterado com os seguintes comandos
-
-`git update-index --assume-unchanged .env`
+Diga para o git considerar que o .env não foi alterado com o seguinte comando
 
 `git update-index --no-assume-unchanged .env`
 
