@@ -2,8 +2,34 @@ require('dotenv').config();
 const puppeteer = require('puppeteer');
 const fs = require('fs');
 
+function filtraVideos(){
+  let rawdata = fs.readFileSync('estadao.json');
+  let medias = JSON.parse(rawdata).reels_media[0].items;
+
+  let saida = [];
+  medias.forEach(item => {
+    if(item.video_versions){
+      saida.push({
+        video : item.video_versions[0],
+        duracao: item.video_duration
+      })
+    }
+  });
+  return saida
+}
+
+function escreveJsonVideos(saida){
+  let data = JSON.stringify(saida, null, 2);
+
+  fs.writeFile('videos.json', data, (err) => {
+    if (err) throw err;
+    console.log('Data written to file');
+  });
+}
+
 (async () => {
   const browser = await puppeteer.launch({ headless: true, args: [ '--user-agent=Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.132 Safari/537.36', '--disable-background-timer-throttling', '--disable-backgrounding-occluded-windows', '--disable-renderer-backgrounding' ] });
+  //const browser = await puppeteer.launch({ headless: false });
   const page = await browser.newPage();
   // await page.setViewport({ width: 1920, height: 1080 });
 
@@ -28,12 +54,18 @@ const fs = require('fs');
       await fs.writeFile('estadao.json', JSON.stringify(await response.json(), null, 2), err => {
         if(err) throw new Error(err);
 
+
         console.log('JSON file generated successfully!');
       });
 
       await browser.close();
+
+      let saida  = filtraVideos();
+      escreveJsonVideos(saida);
     }
   });
+
+  await page.waitForTimeout(1000);
 
   await page.goto('https://instagram.com/stories/estadao');
 })();
