@@ -10,8 +10,9 @@ function filtraVideos(){
   medias.forEach(item => {
     if(item.video_versions){
       saida.push({
-        video : item.video_versions[0],
-        duracao: item.video_duration
+        videoUrl : item.video_versions[0].url,
+        storyDutration: item.video_duration,
+        mediaType: 0
       })
     }
   });
