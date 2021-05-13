@@ -11,7 +11,7 @@ function filtraVideos(){
     if(item.video_versions){
       saida.push({
         videoUrl : item.video_versions[0].url,
-        storyDutration: item.video_duration,
+        storyDuration: item.video_duration,
         mediaType: 0
       })
     }
