@@ -1,5 +1,14 @@
-"scripts" : {
-
-	"start":"node server.js"
-
+{
+	"name": "instagram_stories_server",
+	"version": "1.0.0",
+	"description": "Servidor em Node.js para buscar os Stories do Estadão no Instagram",
+	"mais": "index.js",
+	"scripts": {
+		"start": "node server.js"
+	},
+	"dependencies": {
+		"dotenv": "10.0.0",
+		"express": "^4.17.1",
+		"puppeteer": "10.1.0"
+	}
 }
